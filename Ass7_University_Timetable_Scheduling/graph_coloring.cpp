@@ -1,6 +1,5 @@
 /*
- * File: graph_coloring.cpp
- * Author: 123B1F052
+
 
  * Description: Implements graph coloring algorithm for university exam scheduling.
  * Usage:
