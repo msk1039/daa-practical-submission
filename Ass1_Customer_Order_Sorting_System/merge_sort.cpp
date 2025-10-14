@@ -1,6 +1,4 @@
 /*
- * File: merge_sort.cpp
- * Author: 123B1F052
 
  * Description: Implements Merge Sort algorithm to sort customer orders by timestamp.
  * Usage:

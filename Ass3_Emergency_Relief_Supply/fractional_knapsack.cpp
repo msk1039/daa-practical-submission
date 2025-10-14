@@ -1,6 +1,4 @@
 /*
- * File: fractional_knapsack.cpp
- * Author: 123B1F052
 
  * Description: Implements Fractional Knapsack algorithm for relief supply distribution.
  * Usage:

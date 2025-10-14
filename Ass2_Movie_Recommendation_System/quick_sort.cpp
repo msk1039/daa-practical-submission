@@ -1,6 +1,5 @@
 /*
- * File: quick_sort.cpp
- * Author: 123B1F052
+
 
  * Description: Implements Quick Sort algorithm to sort movies by different criteria.
  * Usage:

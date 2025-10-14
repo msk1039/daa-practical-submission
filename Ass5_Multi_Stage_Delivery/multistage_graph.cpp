@@ -1,6 +1,4 @@
 /*
- * File: multistage_graph.cpp
- * Author: 123B1F052
 
  * Description: Implements dynamic programming for optimal delivery routes in multistage graph.
  * Usage:

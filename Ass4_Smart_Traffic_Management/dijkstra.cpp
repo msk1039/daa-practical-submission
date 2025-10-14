@@ -1,6 +1,4 @@
 /*
- * File: dijkstra.cpp
- * Author: 123B1F052
 
  * Description: Implements Dijkstra's algorithm for shortest path in traffic management.
  * Usage:

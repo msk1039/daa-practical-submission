@@ -1,6 +1,4 @@
 /*
- * File: knapsack_01.cpp
- * Author: 123B1F052
 
  * Description: Implements 0/1 Knapsack algorithm for disaster relief resource allocation.
  * Usage:
