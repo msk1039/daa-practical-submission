@@ -1,10 +1,4 @@
-/*
 
- * Description: Implements Merge Sort algorithm to sort customer orders by timestamp.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 merge_sort.cpp -o merge_sort
- *   Run:     ./merge_sort < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

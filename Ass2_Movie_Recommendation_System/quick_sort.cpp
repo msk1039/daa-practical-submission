@@ -1,11 +1,4 @@
-/*
 
-
- * Description: Implements Quick Sort algorithm to sort movies by different criteria.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 quick_sort.cpp -o quick_sort
- *   Run:     ./quick_sort < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

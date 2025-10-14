@@ -1,11 +1,3 @@
-/*
-
-
- * Description: Implements graph coloring algorithm for university exam scheduling.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 graph_coloring.cpp -o graph_coloring
- *   Run:     ./graph_coloring < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

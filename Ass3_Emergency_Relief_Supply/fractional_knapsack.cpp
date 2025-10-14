@@ -1,10 +1,4 @@
-/*
 
- * Description: Implements Fractional Knapsack algorithm for relief supply distribution.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 fractional_knapsack.cpp -o fractional_knapsack
- *   Run:     ./fractional_knapsack < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

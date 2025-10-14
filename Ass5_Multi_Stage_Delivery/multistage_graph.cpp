@@ -1,10 +1,4 @@
-/*
 
- * Description: Implements dynamic programming for optimal delivery routes in multistage graph.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 multistage_graph.cpp -o multistage_graph
- *   Run:     ./multistage_graph < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

@@ -1,10 +1,4 @@
-/*
 
- * Description: Implements Dijkstra's algorithm for shortest path in traffic management.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 dijkstra.cpp -o dijkstra
- *   Run:     ./dijkstra < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>

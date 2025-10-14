@@ -1,10 +1,3 @@
-/*
-
- * Description: Implements 0/1 Knapsack algorithm for disaster relief resource allocation.
- * Usage:
- *   Compile: g++ -O2 -std=c++17 knapsack_01.cpp -o knapsack_01
- *   Run:     ./knapsack_01 < input.txt > output.txt
- */
 
 #include <iostream>
 #include <vector>
