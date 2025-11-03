@@ -1,16 +1,8 @@
-5 50
-1
-Medicine Kit
-10 60
-2
-Food Packets
-20 100
-3
-Drinking Water
-30 120
-4
-Blankets
-15 45
-5
-First Aid
-5 30
+Enter boat capacity (W): 50
+Enter number of items: 4
+Enter weight value divisible(1=yes,0=no) for item 1: 10 60 1
+Enter weight value divisible(1=yes,0=no) for item 2: 20 100 1
+Enter weight value divisible(1=yes,0=no) for item 3: 30 120 0
+Enter weight value divisible(1=yes,0=no) for item 4: 10 80 0
+
+Maximum utility value the boat can carry = 240

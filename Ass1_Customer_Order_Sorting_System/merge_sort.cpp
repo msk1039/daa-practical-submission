@@ -1,67 +1,93 @@
-
-
 #include <iostream>
 #include <vector>
-#include <algorithm>
-
 using namespace std;
 
-struct Order
-{
-    int id;
+
+class CustomerOrder {
+public:
     long long timestamp;
+    string customername;
+
+
+    CustomerOrder() : timestamp(0), customername("") {}
+
+    CustomerOrder(long long timestamp, string customername) {
+        this->timestamp = timestamp;
+        this->customername = customername;
+    }
 };
 
-// Merge two sorted segments of the orders array into a single sorted segment by timestamp
-void merge(vector<Order> &a, int left, int mid, int right)
-{
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-    vector<Order> L(a.begin() + left, a.begin() + mid + 1);
-    vector<Order> R(a.begin() + mid + 1, a.begin() + right + 1);
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2)
-    {
-        if (L[i].timestamp <= R[j].timestamp)
-            a[k++] = L[i++];
-        else
-            a[k++] = R[j++];
+class MergeSort {
+public:
+    void sort(vector<CustomerOrder> &orders) {
+
+        if (orders.size() <= 1) return;
+
+        mergesort(orders, 0, orders.size() - 1);
     }
-    while (i < n1)
-        a[k++] = L[i++];
-    while (j < n2)
-        a[k++] = R[j++];
-}
 
-// Recursively divide the orders array and sort each half using merge sort
-void mergeSort(vector<Order> &a, int left, int right)
-{
-    if (left >= right)
-        return;
-    int mid = left + (right - left) / 2;
-    mergeSort(a, left, mid);
-    mergeSort(a, mid + 1, right);
-    merge(a, left, mid, right);
-}
+private:
+    void mergesort(vector<CustomerOrder> &orders, int left, int right) {
 
-// Entry point: read orders, sort by timestamp, and output sorted list
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+        if (left >= right) return;
 
-    int n;
-    if (!(cin >> n))
-        return 0;
+        int mid = left + (right - left) / 2;
 
-    vector<Order> orders(n);
-    for (int i = 0; i < n; ++i)
-        cin >> orders[i].id >> orders[i].timestamp;
 
-    mergeSort(orders, 0, n - 1);
+        mergesort(orders, left, mid);
+        mergesort(orders, mid + 1, right);
 
-    for (const auto &o : orders)
-        cout << o.id << ' ' << o.timestamp << '\n';
+        merge(orders, left, mid, right);
+    }
+
+    void merge(vector<CustomerOrder> &orders, int left, int mid, int right) {
+
+        int n1 = mid - left + 1;
+
+        int n2 = right - mid;
+
+        vector<CustomerOrder> L(n1), R(n2);
+
+        for (int i = 0; i < n1; i++)
+            L[i] = orders[left + i];
+
+        for (int j = 0; j < n2; j++)
+            R[j] = orders[mid + 1 + j];
+
+        int i = 0, j = 0, k = left;
+
+        while (i < n1 && j < n2) {
+            if (L[i].timestamp <= R[j].timestamp) {
+                orders[k++] = L[i++];
+            } else {
+                orders[k++] = R[j++];
+            }
+        }
+
+        while (i < n1) {
+            orders[k++] = L[i++];
+        }
+
+        while (j < n2) {
+            orders[k++] = R[j++];
+        }
+    }
+};
+
+int main() {
+    vector<CustomerOrder> orders = {
+        CustomerOrder(1678901234, "A"),
+        CustomerOrder(1678801111, "B"),
+        CustomerOrder(1678956789, "C"),
+        CustomerOrder(1678704321, "D")
+    };
+
+    MergeSort s;
+    s.sort(orders);
+    cout << "Sorted Orders by Timestamp:\n";
+    for (auto &o : orders) {
+        cout << o.timestamp << " - " << o.customername << endl;
+    }
 
     return 0;
 }

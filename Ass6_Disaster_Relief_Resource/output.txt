@@ -1,15 +1,11 @@
-Maximum Utility Value: 300
-Total Weight Used: 48 kg (Capacity: 50 kg)
 
-Items Selected:
-ID	Name			Weight	Value	Priority
------------------------------------------------------------
-1	Medicine Kit		15	100	High
-2	Antibiotics		8	80	High
-7	First Aid		5	50	High
-3	Food Packets		20	60	Medium
+Enter number of items: 4
+Enter maximum weight capacity of truck (W): 50
 
-Priority-wise breakdown:
-High priority items: 3
-Medium priority items: 1
-Low priority items: 0
+Enter weight and utility value for each item:
+Item 1 (weight value): 10 60
+Item 2 (weight value): 20 100
+Item 3 (weight value): 30 120
+Item 4 (weight value): 25 75
+
+Maximum total utility value the truck can carry = 220

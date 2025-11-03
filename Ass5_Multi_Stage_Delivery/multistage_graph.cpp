@@ -1,167 +1,81 @@
-
-
 #include <iostream>
 #include <vector>
-#include <limits>
-#include <algorithm>
-
 using namespace std;
 
-const int INF = numeric_limits<int>::max();
+const int INF = 1e9;
 
-struct Edge
-{
-    int from;
-    int to;
-    int cost;
-};
+int main() {
+    int stages;
+    cout << "Enter number of stages: ";
+    cin >> stages;
 
-// Find shortest path in multistage graph using dynamic programming
-pair<int, vector<int>> multistageGraph(int n, int stages, const vector<Edge> &edges, const vector<int> &stage_map)
-{
-    // Initialize distance array
-    vector<int> dist(n, INF);
-    vector<int> parent(n, -1);
+    vector<int> nodesInStage(stages);
+    cout << "Enter number of nodes in each stage:\n";
+    for (int i = 0; i < stages; i++) cin >> nodesInStage[i];
 
-    // Source node has distance 0
-    dist[0] = 0;
 
-    // Build adjacency list for efficient edge lookup
-    vector<vector<Edge>> graph(n);
-    for (const Edge &e : edges)
-    {
-        graph[e.from].push_back(e);
+    vector<vector<int>> stageNodes(stages);
+    int id = 0;
+    for (int i = 0; i < stages; i++) {
+        for (int j = 0; j < nodesInStage[i]; j++) {
+            stageNodes[i].push_back(id++);
+        }
     }
 
-    // Process nodes in topological order (stage by stage)
-    for (int node = 0; node < n; node++)
-    {
-        if (dist[node] == INF)
-            continue;
+    int totalNodes = id;
+    vector<vector<int>> cost(totalNodes, vector<int>(totalNodes, INF));
 
-        // Relax all outgoing edges
-        for (const Edge &edge : graph[node])
-        {
-            int new_cost = dist[node] + edge.cost;
-            if (new_cost < dist[edge.to])
-            {
-                dist[edge.to] = new_cost;
-                parent[edge.to] = node;
+    cout << "\nEnter edges as: from to cost (-1 if no direct path)\n";
+    cout << "Total possible edges: sum of nodes from stage i to stage i+1\n";
+
+    for (int i = 0; i < stages - 1; i++) {
+        for (int u : stageNodes[i]) {
+            for (int v : stageNodes[i+1]) {
+                int c;
+                cin >> c;
+                if (c >= 0) cost[u][v] = c;
             }
+        }
+    }
+
+
+    vector<int> minCost(totalNodes, INF);
+    for (int u : stageNodes[0]) minCost[u] = 0;
+
+    vector<int> parent(totalNodes, -1);
+
+    for (int i = 1; i < stages; i++) {
+        for (int v : stageNodes[i]) {
+            for (int u : stageNodes[i-1]) {
+                if (minCost[u] + cost[u][v] < minCost[v]) {
+                    minCost[v] = minCost[u] + cost[u][v];
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+
+    int bestNode = -1;
+    int bestCost = INF;
+    for (int v : stageNodes[stages-1]) {
+        if (minCost[v] < bestCost) {
+            bestCost = minCost[v];
+            bestNode = v;
         }
     }
 
     // Reconstruct path
     vector<int> path;
-    int current = n - 1; // destination is last node
-
-    // Check if destination is reachable
-    if (dist[current] == INF)
-    {
-        return {-1, path};
+    int cur = bestNode;
+    while (cur != -1) {
+        path.push_back(cur);
+        cur = parent[cur];
     }
-
-    // Backtrack to find path
-    while (current != -1)
-    {
-        path.push_back(current);
-        current = parent[current];
-    }
-
     reverse(path.begin(), path.end());
 
-    return {dist[n - 1], path};
-}
-
-// Entry point: read multistage graph, find optimal path, output result
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int n, m, stages;
-
-    if (!(cin >> n >> m >> stages))
-    {
-        cerr << "Invalid input format" << endl;
-        return 1;
-    }
-
-    // Validate inputs
-    if (n <= 0 || m < 0 || stages <= 0)
-    {
-        cerr << "Invalid graph parameters" << endl;
-        return 1;
-    }
-
-    // Read stage mapping for each node
-    vector<int> stage_map(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> stage_map[i];
-        if (stage_map[i] < 0 || stage_map[i] >= stages)
-        {
-            cerr << "Invalid stage for node " << i << endl;
-            return 1;
-        }
-    }
-
-    // Read edges
-    vector<Edge> edges;
-    for (int i = 0; i < m; i++)
-    {
-        int u, v, w;
-        cin >> u >> v >> w;
-
-        // Validate edge
-        if (u < 0 || u >= n || v < 0 || v >= n || w < 0)
-        {
-            cerr << "Invalid edge: " << u << " " << v << " " << w << endl;
-            continue;
-        }
-
-        // Ensure edge goes forward in stages
-        if (stage_map[u] >= stage_map[v])
-        {
-            cerr << "Edge does not go forward: " << u << " -> " << v << endl;
-            continue;
-        }
-
-        edges.push_back({u, v, w});
-    }
-
-    // Find optimal path
-    auto result = multistageGraph(n, stages, edges, stage_map);
-    int min_cost = result.first;
-    vector<int> path = result.second;
-
-    // Output results
-    if (min_cost == -1)
-    {
-        cout << "No path exists from source to destination" << endl;
-    }
-    else
-    {
-        cout << "Minimum delivery cost: " << min_cost << endl;
-        cout << "Optimal route: ";
-        for (size_t i = 0; i < path.size(); i++)
-        {
-            cout << path[i];
-            if (i < path.size() - 1)
-                cout << " -> ";
-        }
-        cout << endl;
-
-        // Print stage information
-        cout << "\nStage breakdown:" << endl;
-        for (size_t i = 0; i < path.size(); i++)
-        {
-            cout << "Node " << path[i] << " (Stage " << stage_map[path[i]] << ")";
-            if (i < path.size() - 1)
-                cout << " -> ";
-        }
-        cout << endl;
-    }
+    cout << "\nOptimal path through stages: ";
+    for (int x : path) cout << x << " ";
+    cout << "\nMinimum total cost: " << bestCost << endl;
 
     return 0;
 }

@@ -1,5 +1,19 @@
-101 The Shawshank Redemption 9.3 1994 15000000
-102 The Godfather 9.2 1972 12000000
-103 The Dark Knight 9 2008 20000000
-104 Pulp Fiction 8.9 1994 10000000
-105 Forrest Gump 8.8 1994 18000000
+Enter number of movies: 3
+Enter title, rating, year, watchTime: DDLJ
+9.8
+1990
+170
+Enter title, rating, year, watchTime: YJHD
+9.8
+2010
+150
+Enter title, rating, year, watchTime: Sholay
+1976
+1976
+180
+Choose sorting parameter (1-Rating, 2-Year, 3-WatchTime): 2
+
+Sorted Movies:
+Sholay | Rating: 1976 | Year: 1976 | WatchTime: 180
+DDLJ | Rating: 9.8 | Year: 1990 | WatchTime: 170
+YJHD | Rating: 9.8 | Year: 2010 | WatchTime: 150

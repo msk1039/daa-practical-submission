@@ -1,112 +1,88 @@
-
-
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>
-
 using namespace std;
 
-struct Movie
-{
-    int id;
-    string name;
-    double rating;
-    int year;
-    long long watch_time;
+class Movie {
+public:
+    string title;
+    double imdbRating;
+    int releaseYear;
+    long long watchTime;
+
+    Movie(string t, double r, int y, long long w) {
+        title = t;
+        imdbRating = r;
+        releaseYear = y;
+        watchTime = w;
+    }
 };
 
-// Global variable to track sorting criteria: 1=rating, 2=year, 3=watch_time
-int sort_by = 1;
+class QuickSort {
+public:
+    int partition(vector<Movie>& arr, int low, int high, int choice) {
+        Movie pivot = arr[low];
+        int i = low + 1;
+        int j = high;
 
-// Compare two movies based on the selected sorting criteria
-bool compareMovies(const Movie &a, const Movie &b)
-{
-    if (sort_by == 1)
-        return a.rating > b.rating; // descending for rating
-    else if (sort_by == 2)
-        return a.year > b.year; // descending for year
-    else
-        return a.watch_time > b.watch_time; // descending for watch_time
-}
+        while (true) {
+            while (i <= high && compare(arr[i], pivot, choice))
+                i++;
+            while (j >= low && compare(pivot, arr[j], choice))
+                j--;
 
-// Partition the array around a pivot element for quick sort
-int partition(vector<Movie> &arr, int low, int high)
-{
-    Movie pivot = arr[high];
-    int i = low - 1;
+            if (i < j)
+                swap(arr[i], arr[j]);
+            else
+                break;
+        }
+        swap(arr[low], arr[j]);
+        return j;
+    }
 
-    for (int j = low; j < high; j++)
-    {
-        if (compareMovies(arr[j], pivot))
-        {
-            i++;
-            swap(arr[i], arr[j]);
+    void quickSort(vector<Movie>& arr, int low, int high, int choice) {
+        if (low < high) {
+            int p = partition(arr, low, high, choice);
+            quickSort(arr, low, p - 1, choice);
+            quickSort(arr, p + 1, high, choice);
         }
     }
-    swap(arr[i + 1], arr[high]);
-    return i + 1;
-}
 
-// Recursively sort the array using quick sort algorithm
-void quickSort(vector<Movie> &arr, int low, int high)
-{
-    if (low < high)
-    {
-        int pi = partition(arr, low, high);
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+    bool compare(Movie& a, Movie& b, int choice) {
+        if (choice == 1) return a.imdbRating < b.imdbRating;
+        if (choice == 2) return a.releaseYear < b.releaseYear;
+        return a.watchTime < b.watchTime;
     }
-}
+};
 
-// Entry point: read movies, sort by selected criteria, output sorted list
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+int main() {
+    int n;
+    cout << "Enter number of movies: ";
+    cin >> n;
 
-    int n, criteria;
-    if (!(cin >> n >> criteria))
-        return 0;
-
-    // Validate sorting criteria input
-    if (criteria < 1 || criteria > 3)
-    {
-        cerr << "Invalid sorting criteria. Use 1=rating, 2=year, 3=watch_time" << endl;
-        return 1;
+    vector<Movie> movies;
+    for (int i = 0; i < n; i++) {
+        string title;
+        double rating;
+        int year;
+        long long watch;
+        cout << "Enter title, rating, year, watchTime: ";
+        cin >> title >> rating >> year >> watch;
+        movies.push_back(Movie(title, rating, year, watch));
     }
 
-    sort_by = criteria;
-    vector<Movie> movies(n);
+    cout << "Choose sorting parameter (1-Rating, 2-Year, 3-WatchTime): ";
+    int choice;
+    cin >> choice;
 
-    // Read movie data from input
-    for (int i = 0; i < n; i++)
-    {
-        cin >> movies[i].id;
-        cin.ignore();
-        getline(cin, movies[i].name);
-        cin >> movies[i].rating >> movies[i].year >> movies[i].watch_time;
-        cin.ignore();
-    }
+    QuickSort sorter;
+    sorter.quickSort(movies, 0, n - 1, choice);
 
-    // Handle edge case of empty or single movie
-    if (n == 0)
-    {
-        return 0;
-    }
-    if (n == 1)
-    {
-        cout << movies[0].id << ' ' << movies[0].name << ' ' << movies[0].rating << ' ' << movies[0].year << ' ' << movies[0].watch_time << '\n';
-        return 0;
-    }
-
-    // Sort movies using quick sort
-    quickSort(movies, 0, n - 1);
-
-    // Output sorted movies
-    for (const auto &m : movies)
-    {
-        cout << m.id << ' ' << m.name << ' ' << m.rating << ' ' << m.year << ' ' << m.watch_time << '\n';
+    cout << "\nSorted Movies:\n";
+    for (auto& m : movies) {
+        cout << m.title << " | Rating: " << m.imdbRating
+             << " | Year: " << m.releaseYear
+             << " | WatchTime: " << m.watchTime << endl;
     }
 
     return 0;
