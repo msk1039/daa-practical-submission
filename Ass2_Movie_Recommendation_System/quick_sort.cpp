@@ -56,24 +56,14 @@ public:
 };
 
 int main() {
-    int n;
-    cout << "Enter number of movies: ";
-    cin >> n;
 
+    int n = 3;
     vector<Movie> movies;
-    for (int i = 0; i < n; i++) {
-        string title;
-        double rating;
-        int year;
-        long long watch;
-        cout << "Enter title, rating, year, watchTime: ";
-        cin >> title >> rating >> year >> watch;
-        movies.push_back(Movie(title, rating, year, watch));
-    }
+    movies.push_back(Movie("DDLJ", 9.8, 1990, 170));
+    movies.push_back(Movie("YJHD", 9.7, 2010, 150));
+    movies.push_back(Movie("Sholay", 9.9, 1976, 180));
 
-    cout << "Choose sorting parameter (1-Rating, 2-Year, 3-WatchTime): ";
-    int choice;
-    cin >> choice;
+    int choice = 2; // Sort by Year
 
     QuickSort sorter;
     sorter.quickSort(movies, 0, n - 1, choice);

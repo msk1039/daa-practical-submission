@@ -1,2 +1,3 @@
-Optimal path through stages: 0 3 5
-Minimum total cost: 10
+
+Optimal path through stages: 0 2 5 
+Minimum total cost: 2

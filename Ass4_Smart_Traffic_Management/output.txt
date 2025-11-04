@@ -1,14 +1,6 @@
 
---- Initial Shortest Distances ---
-Hospital 3 distance: 9
-Hospital 5 distance: 11
+--- Shortest Distances from Ambulance to Hospitals ---
+Hospital 3 distance: 8
+Hospital 5 distance: 10
 
-Do you want to update a road due to traffic? (1 = Yes, 0 = No): 1
-Enter road to update (from to new_travel_time): 2 3 20
-
---- Updated Shortest Distances ---
-Hospital 3 distance: 14
-Hospital 5 distance: 11
-
-Do you want to update another road? (1 = Yes, 0 = No): 0
 System finished computing shortest routes.

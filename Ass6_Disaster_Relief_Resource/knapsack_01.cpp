@@ -24,18 +24,12 @@ int knapsack(int W, vector<int>& wt, vector<int>& val, int n) {
 }
 
 int main() {
-    int n, W;
-    cout << "Enter number of items: ";
-    cin >> n;
-    cout << "Enter maximum weight capacity of truck (W): ";
-    cin >> W;
 
-    vector<int> wt(n), val(n);
-    cout << "\nEnter weight and utility value for each item:\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Item " << i + 1 << " (weight value): ";
-        cin >> wt[i] >> val[i];
-    }
+    int n = 4;
+    int W = 50;
+
+    vector<int> wt = {10, 20, 30, 25};
+    vector<int> val = {60, 100, 120, 75};
 
     int maxValue = knapsack(W, wt, val, n);
 

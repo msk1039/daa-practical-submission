@@ -38,23 +38,23 @@ void greedyColoring(vector<vector<int>>& graph, int V) {
 }
 
 int main() {
-    int V, E;
-    cout << "Enter number of courses (vertices): ";
-    cin >> V;
 
+    int V = 6;
+    int E = 8;
 
     vector<vector<int>> graph(V, vector<int>(V, 0));
 
-    cout << "Enter number of student conflicts (edges): ";
-    cin >> E;
 
-    cout << "Enter each conflict as: course1 course2\n";
-    cout << "(Means these two courses share students and cannot have same slot)\n";
-    for (int i = 0; i < E; i++) {
-        int u, v;
-        cin >> u >> v;
-        graph[u - 1][v - 1] = 1;
-        graph[v - 1][u - 1] = 1;
+    vector<pair<int, int>> edges = {
+        {1, 2}, {1, 3}, {2, 4}, {3, 4}, 
+        {4, 5}, {5, 6}, {2, 6}, {3, 6}
+    };
+
+    for (auto& edge : edges) {
+        int u = edge.first - 1;  
+        int v = edge.second - 1;
+        graph[u][v] = 1;
+        graph[v][u] = 1;
     }
 
     greedyColoring(graph, V);

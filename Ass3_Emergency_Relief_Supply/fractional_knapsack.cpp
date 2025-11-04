@@ -51,21 +51,15 @@ public:
 };
 
 int main() {
-    double W;
-    int n;
-    cout << "Enter boat capacity (W): ";
-    cin >> W;
-    cout << "Enter number of items: ";
-    cin >> n;
+
+    double W = 50;
+    int n = 4;
 
     vector<Item> items;
-    for (int i = 0; i < n; i++) {
-        double w, v;
-        int d;
-        cout << "Enter weight value divisible(1=yes,0=no) for item " << i + 1 << ": ";
-        cin >> w >> v >> d;
-        items.push_back(Item(w, v, d == 1));
-    }
+    items.push_back(Item(10, 60, true));   // weight=10, value=60, divisible=1
+    items.push_back(Item(20, 100, true));  // weight=20, value=100, divisible=1
+    items.push_back(Item(30, 120, false)); // weight=30, value=120, divisible=0
+    items.push_back(Item(10, 80, false));  // weight=10, value=80, divisible=0
 
     Knapsack k;
     double maxValue = k.maximizeValue(W, items);

@@ -5,14 +5,9 @@ using namespace std;
 const int INF = 1e9;
 
 int main() {
-    int stages;
-    cout << "Enter number of stages: ";
-    cin >> stages;
 
-    vector<int> nodesInStage(stages);
-    cout << "Enter number of nodes in each stage:\n";
-    for (int i = 0; i < stages; i++) cin >> nodesInStage[i];
-
+    int stages = 3;
+    vector<int> nodesInStage = {2, 2, 2};
 
     vector<vector<int>> stageNodes(stages);
     int id = 0;
@@ -25,19 +20,18 @@ int main() {
     int totalNodes = id;
     vector<vector<int>> cost(totalNodes, vector<int>(totalNodes, INF));
 
-    cout << "\nEnter edges as: from to cost (-1 if no direct path)\n";
-    cout << "Total possible edges: sum of nodes from stage i to stage i+1\n";
 
-    for (int i = 0; i < stages - 1; i++) {
-        for (int u : stageNodes[i]) {
-            for (int v : stageNodes[i+1]) {
-                int c;
-                cin >> c;
-                if (c >= 0) cost[u][v] = c;
-            }
-        }
-    }
-
+    // Stage 0 to Stage 1
+    cost[0][2] = 1;  // node 0 to node 2, cost 1
+    cost[0][3] = 3;  // node 0 to node 3, cost 3
+    cost[1][2] = 2;  // node 1 to node 2, cost 2
+    cost[1][3] = 4;  // node 1 to node 3, cost 4
+    
+    // Stage 1 to Stage 2
+    cost[2][4] = 2;  // node 2 to node 4, cost 2
+    cost[2][5] = 1;  // node 2 to node 5, cost 1
+    cost[3][4] = 4;  // node 3 to node 4, cost 4
+    cost[3][5] = 5;  // node 3 to node 5, cost 5
 
     vector<int> minCost(totalNodes, INF);
     for (int u : stageNodes[0]) minCost[u] = 0;

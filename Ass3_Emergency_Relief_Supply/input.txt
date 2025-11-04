@@ -1,8 +1,0 @@
-Enter boat capacity (W): 50
-Enter number of items: 4
-Enter weight value divisible(1=yes,0=no) for item 1: 10 60 1
-Enter weight value divisible(1=yes,0=no) for item 2: 20 100 1
-Enter weight value divisible(1=yes,0=no) for item 3: 30 120 0
-Enter weight value divisible(1=yes,0=no) for item 4: 10 80 0
-
-Maximum utility value the boat can carry = 240
