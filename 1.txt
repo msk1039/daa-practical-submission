@@ -91,3 +91,22 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Time Complexity: O(n log n)
+The merge sort algorithm has a time complexity of O(n log n) in all cases (best, average, and worst) because it always divides the array into two halves and takes linear time to merge the two halves.
+
+Space Complexity: O(n)
+The space complexity is O(n) because it requires an auxiliary array of size n to store the merged elements.
+*/

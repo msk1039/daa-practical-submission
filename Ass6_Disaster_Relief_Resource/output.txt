@@ -1,2 +1,0 @@
-Maximum total utility value the truck can carry = 220
-

@@ -73,3 +73,16 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+/*
+Time Complexity: O(V^2)
+where V is the total number of nodes. The algorithm iterates through stages and nodes to compute the minimum cost.
+
+Space Complexity: O(V^2)
+To store the cost matrix and other arrays for minCost and parent.
+*/

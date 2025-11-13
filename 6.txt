@@ -1,0 +1,86 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void knapsack(int W, vector<int>& wt, vector<int>& val, int n) {
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int w = 1; w <= W; w++) {
+            if (wt[i - 1] <= w) {
+                dp[i][w] = max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w]);
+            } else {
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+
+    int maxValue = dp[n][W];
+    cout << "\nMaximum total utility value the truck can carry = " << maxValue << endl;
+
+    cout << "\nItems selected:" << endl;
+    int w = W;
+    vector<int> selectedItems;
+    for (int i = n; i > 0 && maxValue > 0; i--) {
+        if (dp[i][w] != dp[i - 1][w]) {
+            selectedItems.push_back(i - 1);
+            maxValue -= val[i - 1];
+            w -= wt[i - 1];
+        }
+    }
+
+    reverse(selectedItems.begin(), selectedItems.end());
+    for (int i : selectedItems) {
+        cout << "Item with weight " << wt[i] << " and value " << val[i] << endl;
+    }
+}
+
+int main() {
+    int n = 4;
+    int W = 50;
+
+    vector<int> wt = {10, 20, 30, 25};
+    vector<int> val = {60, 100, 120, 75};
+
+    knapsack(W, wt, val, n);
+
+    return 0;
+}
+
+/*
+Time Complexity: O(n * W)
+where n is the number of items and W is the capacity of the knapsack. This is due to the dynamic programming table of size n x W.
+
+Space Complexity: O(n * W)
+To store the DP table. This can be optimized to O(W) by using only one row of the DP table.
+*/
+
+/*
+## 0/1 Knapsack Problem Theory
+
+### Problem Statement
+The 0/1 knapsack problem is a classic optimization problem. Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible. The "0/1" property means that for each item, you can either take it (1) or leave it (0). You cannot take a fractional part of an item or take an item multiple times.
+
+### Dynamic Programming Approach
+This problem has an optimal substructure and overlapping subproblems, which makes it suitable for dynamic programming. We can define a 2D DP table, `dp[i][w]`, which stores the maximum value that can be obtained using the first `i` items with a maximum weight capacity of `w`.
+
+### Recurrence Relation
+For each item `i`, we have two choices:
+1.  **The item is not included:** The maximum value is the same as the maximum value that can be obtained from the first `i-1` items with the same weight capacity `w`. This is `dp[i-1][w]`.
+2.  **The item is included:** This is only possible if the weight of the item (`wt[i-1]`) is less than or equal to the current capacity `w`. If we include the item, the value is the value of the current item (`val[i-1]`) plus the maximum value that can be obtained from the first `i-1` items with the remaining weight capacity `w - wt[i-1]`. This is `val[i-1] + dp[i-1][w - wt[i-1]]`.
+
+We take the maximum of these two choices. The recurrence relation is:
+`dp[i][w] = max(dp[i-1][w], val[i-1] + dp[i-1][w - wt[i-1]])` if `wt[i-1] <= w`
+`dp[i][w] = dp[i-1][w]` if `wt[i-1] > w`
+
+The base cases are `dp[0][w] = 0` for all `w` (no items, no value) and `dp[i][0] = 0` for all `i` (no capacity, no value).
+
+### Finding the Selected Items
+After filling the DP table, the maximum value is `dp[n][W]`. To find the items that were included to achieve this maximum value, we can backtrack from `dp[n][W]`.
+We start from `i = n` and `w = W`.
+- If `dp[i][w] != dp[i-1][w]`, it means that item `i` was included in the optimal solution. We add the item to our list and reduce the remaining weight capacity by `wt[i-1]`.
+- If `dp[i][w] == dp[i-1][w]`, it means that item `i` was not included. We move to the previous item `i-1` without changing the weight.
+We repeat this process until `i` becomes 0.
+*/

@@ -1,5 +1,0 @@
-
-Sorted Movies:
-Sholay | Rating: 9.9 | Year: 1976 | WatchTime: 180
-DDLJ | Rating: 9.8 | Year: 1990 | WatchTime: 170
-YJHD | Rating: 9.7 | Year: 2010 | WatchTime: 150

@@ -1,3 +1,0 @@
-
-Maximum utility value the boat can carry = 240
-

@@ -67,3 +67,17 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+/*
+Time Complexity: O(n log n)
+The time complexity is dominated by the sorting of items, which takes O(n log n) time. The rest of the algorithm runs in O(n).
+
+Space Complexity: O(1)
+The space complexity is O(1) if we don't consider the space for storing the items themselves. The sorting can be done in-place.
+*/

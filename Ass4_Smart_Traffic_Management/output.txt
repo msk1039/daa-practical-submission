@@ -1,6 +1,0 @@
-
---- Shortest Distances from Ambulance to Hospitals ---
-Hospital 3 distance: 8
-Hospital 5 distance: 10
-
-System finished computing shortest routes.

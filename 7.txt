@@ -61,3 +61,16 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+/*
+Time Complexity: O(V^2 + E)
+where V is the number of vertices and E is the number of edges. The outer loop runs V times, and the inner loops can take up to V time.
+
+Space Complexity: O(V)
+To store the result and available arrays.
+*/

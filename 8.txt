@@ -141,3 +141,12 @@ int main() {
     tspLC(costMatrix);
     return 0;
 }
+
+
+/*
+Time Complexity: O(n^2 * 2^n)
+In the worst case, the algorithm explores a large portion of the state space tree. n is the number of cities.
+
+Space Complexity: O(n^2 * 2^n)
+The space complexity is dominated by the priority queue, which can store a large number of nodes in the worst case.
+*/
